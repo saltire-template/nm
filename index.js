@@ -1,5 +1,3 @@
-// @ts-check
-
 // !!! Sharing the dependencies of caz
 module.paths = require.main.paths
 
@@ -9,7 +7,6 @@ const { name, version } = require('./package.json')
 
 const date = new Date()
 
-/** @type {import('caz').Template} */
 module.exports = {
   name,
   version,
@@ -22,42 +19,41 @@ module.exports = {
     {
       name: 'name',
       type: 'text',
-      message: 'Project name'
+      message: '项目名称'
     },
     {
       name: 'version',
       type: 'text',
-      message: 'Project version'
+      message: '版本号'
     },
     {
       name: 'description',
       type: 'text',
-      message: 'Project description',
-      initial: 'Awesome node modules.'
+      message: '项目描述',
+      initial: ' '
     },
     {
       name: 'author',
       type: 'text',
-      message: 'Project author name'
+      message: '项目作者'
     },
     {
       name: 'email',
       type: 'text',
-      message: 'Project author email'
+      message: '作者邮箱'
     },
     {
       name: 'url',
       type: 'text',
-      message: 'Project author url'
+      message: '作者主页'
     },
     {
       name: 'license',
       type: 'select',
-      message: 'Project license',
+      message: '开源许可',
       hint: ' ',
       choices: [
         { value: 'MIT' },
-        { value: 'BSD-3-Clause' },
         { value: 'Apache' },
         { value: 'Unlicense' }
       ]
@@ -65,36 +61,34 @@ module.exports = {
     {
       name: 'github',
       type: 'text',
-      message: 'GitHub username or organization',
+      message: 'Github账号',
       initial: 'zce'
     },
     {
       name: 'features',
       type: 'multiselect',
-      message: 'Choose the features you need',
+      message: '选择你的 npm 包初始化结构',
       instructions: false,
       choices: [
-        { title: 'CLI Program', value: 'cli' },
-        { title: 'Additional docs', value: 'docs' },
-        { title: 'Additional examples', value: 'example' },
-        { title: 'Automatic test', value: 'test', selected: true }
+        { title: '是否是 CLI 程序', value: 'cli' },
+        { title: '是否添加说明文档', value: 'docs' },
+        { title: '是否添加默认用例', value: 'example' },
       ]
     },
     {
       name: 'install',
       type: 'confirm',
-      message: 'Install dependencies',
+      message: '是否立即安装依赖',
       initial: true
     },
     {
       name: 'pm',
       type: prev => process.env.NODE_ENV === 'test' || prev ? 'select' : null,
-      message: 'Package manager',
+      message: '选择你的包管理器',
       hint: ' ',
       choices: [
         { title: 'npm', value: 'npm' },
-        { title: 'yarn', value: 'yarn' },
-        { title: 'pnpm', value: 'pnpm' }
+        { title: 'yarn', value: 'yarn' }
       ]
     }
   ],
@@ -105,10 +99,6 @@ module.exports = {
     'docs/**': answers => answers.features.includes('docs'),
     /** @param {{ features: string[] }} answers */
     'example/**': answers => answers.features.includes('example'),
-    /** @param {{ features: string[] }} answers */
-    'test/**': answers => answers.features.includes('test'),
-    /** @param {{ features: string[] }} answers */
-    '.travis.yml': answers => answers.features.includes('test')
   },
   install: 'npm',
   init: true,
@@ -117,15 +107,14 @@ module.exports = {
   },
   complete: async ctx => {
     console.clear()
-    console.log(chalk`Created a new project in {cyan ${ctx.project}} by the {blue ${ctx.template}} template.\n`)
-    console.log('Getting Started:')
+    console.log(chalk.green(`\n ## 使用模板[${ctx.template}]成功创建了项目： ${ctx.project}\.\n`))
     if (ctx.dest !== process.cwd()) {
       console.log(chalk`  $ {cyan cd ${path.relative(process.cwd(), ctx.dest)}}`)
     }
     if (ctx.config.install === false) {
       console.log(chalk`  $ {cyan npm install} {gray # or yarn}`)
     }
-    console.log(chalk`  $ {cyan ${ctx.config.install ? ctx.config.install : 'npm'} test}`)
-    console.log('\nHappy hacking :)\n')
+    console.log(chalk`  $ {cyan ${ctx.config.install ? ctx.config.install : 'npm'} run dev}`)
+    console.log(chalk.green(`\n ## 现在你可以使用它了,尝试进入该项目开始你的 npm 之旅吧~~`))
   }
 }
