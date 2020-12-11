@@ -45,7 +45,8 @@ module.exports = {
     {
       name: 'url',
       type: 'text',
-      message: '作者主页'
+      message: '作者主页',
+      initial: 'https://juejin.cn/user/668105060404104'
     },
     {
       name: 'license',
@@ -54,15 +55,13 @@ module.exports = {
       hint: ' ',
       choices: [
         { value: 'MIT' },
-        { value: 'Apache' },
-        { value: 'Unlicense' }
       ]
     },
     {
       name: 'github',
       type: 'text',
       message: 'Github账号',
-      initial: 'zce'
+      initial: 'saltire'
     },
     {
       name: 'features',
