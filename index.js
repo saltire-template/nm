@@ -106,13 +106,15 @@ module.exports = {
   },
   complete: async ctx => {
     console.clear()
-    console.log(chalk.green(`\n ## 使用模板[${ctx.template}]成功创建了项目： ${ctx.project}\.\n`))
+    console.log(chalk`Created a new project in {cyan ${ctx.project}} by the {blue ${ctx.template}} template.\n`)
+    console.log('Getting Started:')
     if (ctx.dest !== process.cwd()) {
       console.log(chalk`  $ {cyan cd ${path.relative(process.cwd(), ctx.dest)}}`)
     }
     if (ctx.config.install === false) {
       console.log(chalk`  $ {cyan npm install} {gray # or yarn}`)
     }
-    console.log(chalk.green(`\n ## 现在你可以使用它了,尝试进入该项目开始你的 npm 之旅吧~~`))
+    console.log(chalk`  $ {cyan ${ctx.config.install ? ctx.config.install : 'npm'} test}`)
+    console.log('\nHappy hacking :)\n')
   }
 }
