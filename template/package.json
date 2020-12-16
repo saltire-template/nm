@@ -4,8 +4,7 @@
   "description": "<%= description %>",
   "keywords": [
     "<%= name %>"<% if (features.includes('cli')) { %>,
-    "cli"<% } %>,
-    "zce"
+    "cli"<% } %>
   ],
   "homepage": "https://github.com/<%= github %>/<%= name %>#readme",
   "bugs": {
@@ -29,11 +28,6 @@
   ],
   "scripts": {
     "test": "standard --fix<%= features.includes('test') ? ' && jest --coverage' : '' %>"
-  },
-  "renovate": {
-    "extends": [
-      "zce"
-    ]
   },
   "dependencies": {<% if (features.includes('cli')) { %>
     "cac": "6.6.1"
